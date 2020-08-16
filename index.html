@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+<title>SKETCH - town</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #efefef;
+}
+#canvas {
+	display: block;
+	width: 600px;
+	margin: 10px auto;
+	background: #fff;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+<script>
+const canvasApp = () => {
+    const cvs = document.querySelector('#canvas');
+    const ctx = cvs.getContext('2d');
+    const W = 4900;
+    cvs.width = W/8*7;
+    cvs.height = W;
+    ctx.fillStyle = '#4195a8';//'#e5d3ab';//'#f6f8c7';//'#6b888c';
+    ctx.fillRect(0,0,W/8*7,W);
+    
+    const w=2147*0.5;
+    const h=1223*0.5;
+    const p=700;
+    
+    for(let k=3;k>-1;k--){
+    for(let i=0;i<8;i++){
+	    const n = Math.floor(Math.random()*2);
+	    for(let j=0;j<Math.floor(Math.random()*18+1);j++){
+		    if(j==0 || Math.random()<0.7){
+		     ctx.drawImage(parts[n],i*p-w*0.5,W*0.5+i*p*0.325-h*0.5-j*h*0.25-k*h*1.5,w,h);
+		     }
+		     else{
+			 ctx.drawImage(parts[n],(i-0.3)*p-w*0.5,W*0.5+(i-0.3)*p*0.325-h*0.5-j*h*0.25-k*h*1.5,w,h);    
+		     }
+		}
+     for(let i=0;i<8;i++){
+	     const n = Math.floor(Math.random()*2);
+	   ctx.drawImage(parts[2+n],i*p-w*0.5,W*0.52+i*p*0.325-h*0.5-k*h*1.5,w,h);  
+     }
+     }
+    }
+    /* glid 
+    const p = 20;
+    for(let i=-20;i<40;i++){
+	    ctx.beginPath();
+	    ctx.strokeStyle = 'cyan';
+	    ctx.lineWidth = 5;
+	    ctx.moveTo(0,i*p);
+	    ctx.lineTo(W,i*p+W*0.325);
+	    ctx.stroke();
+	    ctx.closePath();
+	    
+	    ctx.beginPath();
+		ctx.strokeStyle = 'cyan';
+	    ctx.lineWidth = 5;
+	    ctx.moveTo(0,i*p)
+	    ctx.lineTo(W,i*p-W*0.705);
+	    ctx.stroke();
+	    ctx.closePath();
+    }
+    */
+}
+const init = () => {
+	l++;
+	if (l == n) {
+		canvasApp();
+	}
+}
+
+var n = 4;
+var l = 0;
+var parts = [];
+for (var i = 0; i < n; i++) {
+    var part = new Image();
+    part.onload = init;
+    part.src = 'img/'+i+'.png';
+    parts.push(part);
+}
+</script>
+</html>
